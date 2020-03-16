@@ -12,7 +12,7 @@ pipeline {
       steps {
         script {
           openshift.withCluster() {
-            openshift.newApp('redhat-openjdk18-openshift:latest~https://github.com/lucabarze/jenkins-demo.git')
+            openshift.newApp('redhat-openjdk18-openshift:1.4~https://github.com/lucabarze/jenkins-demo.git')
           }
         }
       }
