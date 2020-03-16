@@ -9,20 +9,7 @@ pipeline {
         git 'https://github.com/lucabarze/jenkins-demo'
     }
 
-    stages {
-        stage ('Initialize') {
-            steps {
-                sh '''
-                    echo "PATH = ${PATH}"
-                    echo "M2_HOME = ${M2_HOME}"
-                '''
-            }
-        }
-
-        stage ('Build') {
-            steps {
-                sh 'mvn package' 
-            }
-        }
+    stage ('Build') {
+        sh 'mvn clean package' 
     }
 }
