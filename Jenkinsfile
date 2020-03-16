@@ -1,15 +1,21 @@
 pipeline {
-    agent any
-    tools {
-        maven 'Maven 3.6.3'
-        jdk 'jdk8'
+  agent any
+  stages {
+    stage('Build') {
+      when {
+        expression {
+          openshift.withCluster() {
+            return !openshift.selector('bc', 'jenkins-demo-os').exists();
+          }
+        }
+      }
+      steps {
+        script {
+          openshift.withCluster() {
+            openshift.newApp('redhat-openjdk18-openshift:latest~https://github.com/lucabarze/jenkins-demo.git')
+          }
+        }
+      }
     }
-
-    stage('Checkout') {
-        git 'https://github.com/lucabarze/jenkins-demo'
-    }
-
-    stage ('Build') {
-        sh 'mvn clean package' 
-    }
+  }
 }
