@@ -14,6 +14,10 @@ pipeline {
             }
         }
 
+        stage('Checkout') {
+            git 'https://github.com/bertjan/spring-boot-sample'
+        }
+
         stage ('Build') {
             steps {
                 sh 'mvn package' 
